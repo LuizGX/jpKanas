@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kana Practice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            font-family: 'Carter One', cursive;
+        }
+
+        #selection {
+            margin-top: 10vh;
+            font-size: 25rem;
+            cursor: pointer;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background: #ddd;
+            color: black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body onkeydown="keyPressed(event)">
+    <div class="navbar">
+        <a onclick="refresh()">Reiniciar</a>
+        <a>
+            <label>Reiniciar a cada: </label>
+            <input type="text" name="intervalTimer" id="intervalTimer">
+            <label>segundos</label>
+            <button onclick="startChronometer()">IR</button>
+            <button onclick="stopChronometer()">PAUSAR</button>
+        </a>
+    </div>
+    <div onclick="toggleAnswer()" id="selection" class="selection"></div>
+    <script>
+        let syllables = [
+
+            ['a', 'あ'],
+            ['i', 'い'],
+            ['u', 'う'],
+            ['e', 'え'],
+            ['o', 'お'],
+
+            ['sa', 'さ'],
+            ['shi', 'し'],
+            ['su', 'す'],
+            ['se', 'せ'],
+            ['so', 'そ'],
+
+            ['na', 'な'],
+            ['ni', 'に'],
+            ['nu', 'ぬ'],
+            ['ne', 'ね'],
+            ['no', 'の'],
+
+            ['ka', 'か'],
+            ['ki', 'き'],
+            ['ku', 'く'],
+            ['ke', 'け'],
+            ['ko', 'こ'],
+
+            ['ta', 'た'],
+            ['chi', 'ち'],
+            ['tsu', 'つ'],
+            ['te', 'て'],
+            ['to', 'と'],
+
+            ['ha', 'は'],
+            ['hi', 'ひ'],
+            ['fu', 'ふ'],
+            ['he', 'へ'],
+            ['ho', 'ほ'],
+
+            ['ma', 'ま'],
+            ['mi', 'み'],
+            ['mu', 'む'],
+            ['me', 'め'],
+            ['mo', 'も'],
+
+            ['ra', 'ら'],
+            ['ri', 'り'],
+            ['ru', 'る'],
+            ['re', 'れ'],
+            ['ro', 'ろ'],
+
+            ['ya', 'や'],
+            ['yu', 'ゆ'],
+            ['yo', 'よ'],
+
+            ['wa', 'わ'],
+            ['wo', 'を'],
+            ['n', 'ん']
+        ];
+        var chronometer;
+        var currentQuestion;
+        var showSyllable;
+        var question = 0;
+        var answer = 1;
+
+        function startChronometer() {
+            let timer = document.getElementById('intervalTimer').value * 1000;
+            if (chronometer === undefined) {
+                chronometer = setInterval(function () { refresh() }, timer);
+            }
+        }
+
+        function stopChronometer() {
+            clearInterval(chronometer);
+            chronometer = undefined;
+        }
+
+        function keyPressed(event) {
+            if (event.key === " ")
+                toggleAnswer();
+            if (event.key === "ArrowRight")
+                refresh();
+        }
+
+        function toggleAnswer() {
+            if (showSyllable == currentQuestion[0]) {
+                showSyllable = currentQuestion[1]
+            } else {
+                showSyllable = currentQuestion[0]
+            }
+            document.getElementById("selection").innerHTML = showSyllable;
+        }
+
+        refresh();
+
+        function refresh() {
+            let index = Math.floor((Math.random() * syllables.length));
+            currentQuestion = syllables[index];
+            showSyllable = currentQuestion[0];
+            document.getElementById("selection").innerHTML = showSyllable;
+        }
+    </script>
+</body>
+
+</html>
