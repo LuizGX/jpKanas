@@ -56,10 +56,12 @@
             <button onclick="startChronometer()">IR</button>
             <button onclick="stopChronometer()">PAUSAR</button>
         </a>
+        <a onclick="chooseKatakana()">Katakana</a>
+        <a onclick="chooseHiragana()">Hiragana</a>
     </div>
     <div onclick="toggleAnswer()" id="selection" class="selection"></div>
     <script>
-        let syllables = [
+        var hiragana = [
 
             ['a', 'あ'],
             ['i', 'い'],
@@ -117,17 +119,85 @@
             ['wo', 'を'],
             ['n', 'ん']
         ];
+        var katakana = [
+
+            ['a', 'ア'],
+            ['i', 'イ'],
+            ['u', 'ウ'],
+            ['e', 'エ'],
+            ['o', 'オ'],
+
+            ['sa', 'サ'],
+            ['shi', 'シ'],
+            ['su', 'ス'],
+            ['se', 'セ'],
+            ['so', 'ソ'],
+
+            ['na', 'ナ'],
+            ['ni', 'ニ'],
+            ['nu', 'ヌ'],
+            ['ne', 'ネ'],
+            ['no', 'ノ'],
+
+            ['ka', 'カ'],
+            ['ki', 'キ'],
+            ['ku', 'ク'],
+            ['ke', 'ケ'],
+            ['ko', 'コ'],
+
+            ['ta', 'タ'],
+            ['chi', 'チ'],
+            ['tsu', 'ツ'],
+            ['te', 'テ'],
+            ['to', 'ト'],
+
+            ['ha', 'ハ'],
+            ['hi', 'ヒ'],
+            ['fu', 'フ'],
+            ['he', 'ヘ'],
+            ['ho', 'ホ'],
+
+            ['ma', 'マ'],
+            ['mi', 'ミ'],
+            ['mu', 'ム'],
+            ['me', 'メ'],
+            ['mo', 'モ'],
+
+            ['ra', 'ラ'],
+            ['ri', 'リ'],
+            ['ru', 'ル'],
+            ['re', 'レ'],
+            ['ro', 'ロ'],
+
+            ['ya', 'ヤ'],
+            ['yu', 'ユ'],
+            ['yo', 'ヨ'],
+
+            ['wa', 'ワ'],
+            ['wo', 'ヲ'],
+            ['n', 'ン']
+
+        ];
+        var syllables = hiragana;
         var chronometer;
         var currentQuestion;
         var showSyllable;
-        var question = 0;
-        var answer = 1;
 
         function startChronometer() {
             let timer = document.getElementById('intervalTimer').value * 1000;
             if (chronometer === undefined) {
                 chronometer = setInterval(function () { refresh() }, timer);
             }
+        }
+
+        function chooseHiragana() {
+            syllables = hiragana;
+            refresh();
+        }
+
+        function chooseKatakana() {
+            syllables = katakana;
+            refresh();
         }
 
         function stopChronometer() {
