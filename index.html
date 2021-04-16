@@ -11,13 +11,11 @@
 
 <body onkeydown="keyPressed(event)">
     <div class="navbar">
-        <a onclick="refresh()">Reiniciar</a>
         <a>
-            <label>Reiniciar a cada: </label>
+            <label>Restart every (seconds): </label>
             <input type="text" name="intervalTimer" id="intervalTimer">
-            <label>segundos</label>
-            <button onclick="startChronometer()">IR</button>
-            <button onclick="stopChronometer()">PAUSAR</button>
+            <button onclick="startChronometer()">GO</button>
+            <button onclick="stopChronometer()">PAUSE</button>
         </a>
         <a onclick="chooseKatakana()">Katakana</a>
         <a onclick="chooseHiragana()">Hiragana</a>
