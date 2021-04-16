@@ -123,7 +123,12 @@ var showSyllable;
 function startChronometer() {
     let timer = document.getElementById('intervalTimer').value * 1000;
     if (chronometer === undefined) {
-        chronometer = setInterval(function () { refresh() }, timer);
+        chronometer = setInterval(function () {
+            setTimeout(() => {
+                toggleAnswer();
+            }, timer / 2);
+            refresh();
+        }, timer);
     }
 }
 
