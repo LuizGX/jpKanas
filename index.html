@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kana Practice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body onkeydown="keyPressed(event)">
+    <div class="navbar">
+        <a onclick="refresh()">Reiniciar</a>
+        <a>
+            <label>Reiniciar a cada: </label>
+            <input type="text" name="intervalTimer" id="intervalTimer">
+            <label>segundos</label>
+            <button onclick="startChronometer()">IR</button>
+            <button onclick="stopChronometer()">PAUSAR</button>
+        </a>
+        <a onclick="chooseKatakana()">Katakana</a>
+        <a onclick="chooseHiragana()">Hiragana</a>
+    </div>
+    <div onclick="toggleAnswer()" id="selection" class="selection"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>
