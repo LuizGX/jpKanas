@@ -115,10 +115,18 @@ var katakana = [
     ['n', 'ン']
 
 ];
-var syllables = hiragana;
+
 var chronometer;
+
 var currentQuestion;
+var syllables = hiragana;
 var showSyllable;
+
+var syllablesList = [];
+
+var previous_index;
+var forward_index;
+var index;
 
 function startChronometer() {
     let timer = document.getElementById('intervalTimer').value * 1000;
@@ -127,19 +135,19 @@ function startChronometer() {
             setTimeout(() => {
                 toggleAnswer();
             }, timer / 2);
-            refresh();
+            refreshAndUpdateHistory();
         }, timer);
     }
 }
 
 function chooseHiragana() {
     syllables = hiragana;
-    refresh();
+    refreshAndUpdateHistory();
 }
 
 function chooseKatakana() {
     syllables = katakana;
-    refresh();
+    refreshAndUpdateHistory();
 }
 
 function stopChronometer() {
@@ -150,8 +158,10 @@ function stopChronometer() {
 function keyPressed(event) {
     if (event.key === " ")
         toggleAnswer();
+    if (event.key === "ArrowLeft")
+        navigateLeft();
     if (event.key === "ArrowRight")
-        refresh();
+        navigateRight();
 }
 
 function toggleAnswer() {
@@ -163,11 +173,54 @@ function toggleAnswer() {
     document.getElementById("selection").innerHTML = showSyllable;
 }
 
-refresh();
+innitializeSyllables();
 
-function refresh() {
-    let index = Math.floor((Math.random() * syllables.length));
+function innitializeSyllables() {
+    refreshAndUpdateHistory();
+    previous_index = 0;
+    forward_index = syllablesList.length;
+}
+
+function refreshAndUpdateHistory() {
+    index = Math.floor((Math.random() * syllables.length));
     currentQuestion = syllables[index];
+
+    syllablesList.push(currentQuestion);
+
+    previous_index = syllablesList.length - 2;
+    forward_index = syllablesList.length;
+
+    updateSyllableOnScreen();
+
+    console.log(syllablesList);
+}
+
+function navigateLeft() {
+    if (previous_index > -1) {
+
+        currentQuestion = syllablesList[previous_index];
+        updateSyllableOnScreen();
+
+        if (previous_index >= 0) {
+            previous_index = previous_index - 1;
+            forward_index = forward_index - 1;
+        }
+    }
+}
+
+function navigateRight() {
+    if (forward_index < syllablesList.length) {
+        currentQuestion = syllablesList[forward_index];
+        updateSyllableOnScreen();
+        previous_index = previous_index + 1;
+        forward_index = forward_index + 1;
+
+    } else {
+        refreshAndUpdateHistory();
+    }
+}
+
+function updateSyllableOnScreen() {
     showSyllable = currentQuestion[0];
     document.getElementById("selection").innerHTML = showSyllable;
 }
